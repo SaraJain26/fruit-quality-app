@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Fruit Detection Project | AI Fruit Quality Detection</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <!-- Left Side: Login Form -->
+        <div class="login-form-section">
+            <div class="login-form-wrapper">
+                <div class="login-header">
+                    <h1>Welcome to Fruit Detection Project</h1>
+                    <p>Sign in to analyze fruit quality using AI</p>
+                </div>
+
+                <div id="errorBox" class="error-box hidden">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V13H11V15ZM11 11H9V5H11V11Z" fill="currentColor"/>
+                    </svg>
+                    <span id="errorMessage">Invalid credentials. Please try again.</span>
+                </div>
+
+                <form id="loginForm" class="login-form" novalidate>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        <span class="field-error" id="emailError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                            <button type="button" class="toggle-password" id="togglePassword">
+                                <svg id="eyeIcon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <path d="M10 4C5 4 1.73 7.11 1 10C1.73 12.89 5 16 10 16C15 16 18.27 12.89 19 10C18.27 7.11 15 4 10 4ZM10 14C7.79 14 6 12.21 6 10C6 7.79 7.79 6 10 6C12.21 6 14 7.79 14 10C14 12.21 12.21 14 10 14ZM10 8C8.9 8 8 8.9 8 10C8 11.1 8.9 12 10 12C11.1 12 12 11.1 12 10C12 8.9 11.1 8 10 8Z" fill="currentColor"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <span class="field-error" id="passwordError"></span>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember" name="remember">
+                            <span>Remember me</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="loginBtn">
+                        <span id="loginBtnText">Sign In</span>
+                        <span id="loginSpinner" class="spinner hidden"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Panel (as before, shortened for brevity) -->
+        <div class="project-info-section">
+            <div class="project-info-content">
+                <div class="project-logo">
+                    <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                        <circle cx="30" cy="30" r="28" fill="rgba(255,255,255,0.1)" stroke="white" stroke-width="2"/>
+                        <path d="M30 10L35 25H50L38 34L43 49L30 40L17 49L22 34L10 25H25L30 10Z" fill="white"/>
+                    </svg>
+                </div>
+
+                <h2 class="project-title">Fruit Detection Project</h2>
+                <h3 class="project-subtitle">AI Fruit Quality Detection System</h3>
+                <div class="tagline">
+                    "Analyze freshness, ripeness, spoilage risk & pesticide levels with AI"
+                </div>
+                <div class="project-footer">
+                    <p>AIML Department • Atria Institute of Technology</p>
+                    <p>Academic Mini Project 2025</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>
