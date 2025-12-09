@@ -1,0 +1,155 @@
+# Fruit Quality App 🍎
+
+AI‑inspired fruit (apple) quality dashboard with a FastAPI backend and a modern HTML/CSS/JS frontend.  
+Upload an apple image to get simulated metrics like freshness, spoilage risk, dry‑matter content, pesticide level, nutrients, and virtual AS7265x sensor curves.
+
+***
+
+## Features
+
+- Login page with simple email/password authentication (demo mode).
+- Dashboard with sidebar navigation:
+  - **Upload Fruit Image** – drag‑and‑drop or capture from camera.
+  - **Analyze Quality** – cards for:
+    - Freshness score (0–100)
+    - Dry matter content (%)
+    - Spoilage risk (Low / Medium / High)
+    - Estimated weight (kg)
+    - Pesticide level (e.g., Pure / Insecticide Low / Fungicide High)
+    - Nutrient breakdown (water, sugar, fiber, vitamin C)
+    - Spectral analysis line chart
+    - Nutrient composition bar chart
+    - Quality distribution donut chart
+  - **Sensor Emulation** – table and graph of 18‑channel AS7265x‑style spectral response (410–940 nm).
+  - **About Project** – description of concept and use cases.
+- FastAPI backend:
+  - `/api/auth/login` – demo login (accepts any email + password ≥ 6 chars).
+  - `/api/analyze/apple` – accepts an image, runs computer‑vision based segmentation + heuristics to generate all outputs.
+
+> Note: This is a **simulation/demo** system, not a medically or industrially validated quality detector.
+
+***
+
+## Tech Stack
+
+- **Backend:** Python, FastAPI, Uvicorn, OpenCV, Pillow, NumPy  
+- **Frontend:** HTML5, CSS3, vanilla JavaScript, Chart.js  
+- **Auth:** Simple token stored in `localStorage` / `sessionStorage` (no real security, demo only).
+
+***
+
+## Project Structure
+
+```text
+fruit-quality-app/
+├── backend/
+│   └── main.py          # FastAPI app with login + analyze endpoints
+└── frontend/
+    ├── login.html       # Login page
+    ├── dashboard.html   # Main dashboard UI
+    ├── css/
+    │   └── styles.css   # All styling (login + dashboard)
+    └── js/
+        ├── login.js     # Login form logic, calls /api/auth/login
+        └── dashboard.js # Navigation, upload, camera, charts, calls /api/analyze/apple
+```
+
+***
+
+## Setup & Installation
+
+1. **Clone the repo**
+
+```bash
+git clone https://github.com/<your-username>/fruit-quality-app.git
+cd fruit-quality-app
+```
+
+2. **Create virtual environment (optional but recommended)**
+
+```bash
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# Linux / macOS
+source .venv/bin/activate
+```
+
+3. **Install backend dependencies**
+
+```bash
+cd backend
+pip install fastapi uvicorn opencv-python-headless pillow numpy python-multipart
+```
+
+***
+
+## Running the Backend
+
+From the `backend` folder:
+
+```bash
+uvicorn main:app --reload --port 8000
+```
+
+The API will be available at:  
+`http://127.0.0.1:8000`
+
+Endpoints:
+
+- `POST /api/auth/login`
+- `POST /api/analyze/apple`
+
+***
+
+## Running the Frontend
+
+From the `frontend` folder:
+
+- Open **`login.html`** in your browser:
+  - Either by double‑clicking it in your file explorer, or
+  - Using a live‑server extension in VS Code.
+
+### Login
+
+- Use any email (e.g. `demo@atria.edu`)  
+- Use any password with at least 6 characters.  
+- On success you are redirected to `dashboard.html`.
+
+***
+
+## Usage Flow
+
+1. **Login** with email + password.  
+2. On the dashboard, go to **Upload Fruit Image**:
+   - Click “Browse Files” or “Capture from Camera”.
+   - After selecting an apple image, click **Analyze Apple**.
+3. The app sends the image to `/api/analyze/apple`, then:
+   - Updates all metric cards.
+   - Updates spectral / nutrient / quality charts.
+   - Populates the Sensor Emulation table and graph.
+
+***
+
+## How the “Model” Works (High Level)
+
+- Uses K‑means clustering in Lab color space to split “fresh” vs “spoiled” surface regions.
+- Converts the fresh/spoiled ratios into:
+  - Freshness score
+  - Spoilage risk label
+- Derives:
+  - Dry matter % from freshness (simple mapping)
+  - Weight from approximate radius in the image
+  - Nutrients from dry matter (%)
+  - Pesticide class + sensor curves as randomized but realistic‑looking values.
+
+This is intended for **educational/demo purposes** to show an end‑to‑end UX, not for real food safety decisions.
+
+***
+
+## Future Improvements
+
+- Replace heuristic “model” with real ML models trained on hyperspectral apple datasets.  
+- Use proper authentication (JWT) and database‑backed user accounts.  
+- Persist analysis history and exportable reports.  
+- Containerize with Docker and deploy backend + static frontend together.
